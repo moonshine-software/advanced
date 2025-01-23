@@ -36,7 +36,11 @@ final class AsyncTabs extends AbstractWithComponents
                 ->ensure(AsyncTab::class)
                 ->map(
                     fn (AsyncTab $tab) => ActionButton::make($tab->label, $tab->href)
-                    ->async(selector: ".{$this->contentClass}", callback: AsyncCallback::with(afterResponse: 'asyncTabs'))
+                        ->customView('moonshine-advanced::components.tabs.action-tab')
+                        ->async(
+                            selector: ".{$this->contentClass}",
+                            callback: AsyncCallback::with(afterResponse: 'asyncTabs')
+                        )
                 )
         );
     }
