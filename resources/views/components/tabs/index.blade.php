@@ -2,12 +2,14 @@
     'contentClass' => 'async-tabs-content',
     'components' => []
 ])
-<div x-data="asyncTabs" {{ $attributes }}>
-    <x-moonshine::layout.flex class="async-tabs-container">
+<div class="tabs" x-data="asyncTabs" {{ $attributes }}>
+    <ul class="tabs-list justify-start async-tabs-container">
         @foreach($components as $button)
-            {!! $button !!}
+            <li class="tabs-item">{!! $button !!}</li>
         @endforeach
-    </x-moonshine::layout.flex>
+    </ul>
 
-    <div class="{{ $contentClass }}"></div>
+    <div class="tabs-content">
+        <div class="{{ $contentClass }}"></div>
+    </div>
 </div>
