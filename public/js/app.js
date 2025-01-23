@@ -21,11 +21,11 @@ document.addEventListener("moonshine:init", () => {
         const container = el.closest('.async-tabs-container')
 
         container.querySelectorAll('a').forEach((a) => {
-            a.classList.remove('btn-primary')
+            a.classList.remove('_is-active')
             a.removeAttribute('data-stop-async')
         })
 
-        el.classList.add('btn-primary')
+        el.classList.add('_is-active')
         el.setAttribute('data-stop-async', true)
     })
 })
