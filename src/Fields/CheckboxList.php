@@ -45,6 +45,17 @@ class CheckboxList extends Field
         return $this->class(['flex', 'items-center', 'gap-4']);
     }
 
+    protected function resolveValue(): mixed
+    {
+        $value = parent::resolveValue();
+
+        if(!\is_array($value)) {
+            return [];
+        }
+
+        return $value;
+    }
+
     protected function viewData(): array
     {
         return [

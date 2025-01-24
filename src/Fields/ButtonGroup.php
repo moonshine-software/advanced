@@ -55,6 +55,17 @@ class ButtonGroup extends Field
         return $this->group();
     }
 
+    protected function resolveValue(): mixed
+    {
+        $value = parent::resolveValue();
+
+        if($this->multiple && !\is_array($value)) {
+            return [];
+        }
+
+        return $value;
+    }
+
     protected function viewData(): array
     {
         return [
