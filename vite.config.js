@@ -4,8 +4,9 @@ export default defineConfig({
         emptyOutDir: false,
         manifest: true,
         rollupOptions: {
-            input: ['resources/css/main.css'],
+            input: ['resources/js/app.js', 'resources/css/main.css'],
             output: {
+                entryFileNames: `app.js`,
                 assetFileNames: file => {
                     let ext = file.name.split('.').pop()
                     if (ext === 'css') {
