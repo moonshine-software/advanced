@@ -21,7 +21,7 @@
                     {!! $step !!}
                 </div>
 
-                <div>
+                <div @defineEvent('steps_finished', $name, 'finish()')>
                     @if($loop->last)
                         {!! $finishButton !!}
                     @else

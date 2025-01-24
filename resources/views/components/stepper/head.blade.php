@@ -6,7 +6,10 @@
     'description' => null,
     'icon',
 ])
-<div {{ $attributes->merge(['class' => 'js-stepper-head js-stepper-head-' . $index, '@click' => 'current(`'.$index.'`)']) }}>
+<div
+    {{ $attributes->merge(['class' => 'js-stepper-head js-stepper-head-' . $index, '@click' => 'current(`'.$index.'`)']) }}
+    @defineEvent('go_to_step_'.$index, $name, 'forceChange('.$index.')')
+>
     <div class="js-stepper-head-state-active" @if(!$active && !$done) style="display: none" @endif>
         <div class="flex gap-3 items-center">
             <x-moonshine::badge color="secondary">

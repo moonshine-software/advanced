@@ -6,12 +6,13 @@ namespace MoonShine\Advanced\Components\Stepper;
 
 use Closure;
 use Illuminate\Contracts\Support\Renderable;
+use MoonShine\Contracts\UI\HasIconContract;
 use MoonShine\Support\AlpineJs;
 use MoonShine\UI\Components\AbstractWithComponents;
 use MoonShine\UI\Traits\WithIcon;
 
 /** @method static static make(iterable $components = [], ?string $title = null, ?string $description = null) */
-final class Step extends AbstractWithComponents
+final class Step extends AbstractWithComponents implements HasIconContract
 {
     use WithIcon;
 
@@ -71,6 +72,13 @@ final class Step extends AbstractWithComponents
     public function head(): Renderable|Closure|string
     {
         return view('moonshine-advanced::components.stepper.head', $this->toArray());
+    }
+
+    public function nextLock(): self
+    {
+        return $this->customAttributes([
+            'data-next-lock' => true
+        ]);
     }
 
     protected function viewData(): array

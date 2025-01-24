@@ -75,46 +75,68 @@ document.addEventListener("alpine:init", () => {
                 this._change();
             }
         },
-        current(index) {
-            if (this.lock) {
+        current(index, force = false) {
+            if (!force && this.lock) {
                 return;
             }
 
-            if (this.lockWhenFinish && this.finished) {
+            if (!force && this.lockWhenFinish && this.finished) {
                 return;
             }
 
-            this.active = index;
-            this._change();
+            if(!force && this._getActiveHead()?.dataset?.nextLock) {
+                this._change(true)
+            } else {
+                this.active = index;
+                this._change();
+            }
+        },
+        forceChange(index) {
+            this.current(index, true)
         },
         next() {
-            this.active++;
-            this._change();
+            if(this._getActiveHead()?.dataset?.nextLock) {
+                this._change(true)
+            } else {
+                this.active++;
+                this._change();
+            }
         },
         prev() {
             this.active--;
             this._change();
         },
         finish() {
-            this.finished = true;
-            this.active++;
-            this._change();
-            this.finishBlock.style.display = "block";
+            if(this._getActiveHead()?.dataset?.nextLock) {
+                this._change(true)
+            } else {
+                this.finished = true;
+                this.active++;
+                this._change();
+                this.finishBlock.style.display = "block";
+            }
         },
         // internal
-        _change() {
-            this.finishBlock.style.display = "none";
-            this.activeHead = this.head.querySelector(
-                `.js-stepper-head-${this.active}`,
-            );
-            this.activeStep = this.container.querySelector(
-                `.js-stepper-content-${this.active}`,
-            );
+        _getActiveHead() {
+          return this.head.querySelector(
+              `.js-stepper-head-${this.active}`,
+          )
+        },
+        // internal
+        _change(onlyEvents = false) {
+            if(!onlyEvents) {
+                this.finishBlock.style.display = "none";
+                this.activeHead = this._getActiveHead();
+                this.activeStep = this.container.querySelector(
+                    `.js-stepper-content-${this.active}`,
+                );
+            }
 
             if (this.activeHead) {
                 const selector = `.js-stepper-content-${this.active} .js-stepper-content-html`;
 
                 if (
+                    !onlyEvents &&
                     this.activeHead.dataset.asyncUrl &&
                     this.loaded[this.active] === undefined
                 ) {
@@ -147,32 +169,34 @@ document.addEventListener("alpine:init", () => {
                 }
             }
 
-            this.steps.forEach((step) => (step.style.display = "none"));
-            this.heads.forEach((step, i) => {
-                step.classList.remove("active");
-                let defaultEl = step.querySelector(
-                    ".js-stepper-head-state-default",
-                );
-                step.querySelector(
-                    ".js-stepper-head-state-active",
-                ).style.display = "none";
-                defaultEl.style.display = "block";
-                defaultEl.classList.remove("js-stepper-head-state-done");
+            if(!onlyEvents) {
+                this.steps.forEach((step) => (step.style.display = "none"));
+                this.heads.forEach((step, i) => {
+                    step.classList.remove("active");
+                    let defaultEl = step.querySelector(
+                        ".js-stepper-head-state-default",
+                    );
+                    step.querySelector(
+                        ".js-stepper-head-state-active",
+                    ).style.display = "none";
+                    defaultEl.style.display = "block";
+                    defaultEl.classList.remove("js-stepper-head-state-done");
 
-                if (i < this.active) {
-                    defaultEl.classList.add("js-stepper-head-state-done");
+                    if (i < this.active) {
+                        defaultEl.classList.add("js-stepper-head-state-done");
+                    }
+                });
+
+                if (this.activeHead && this.activeStep) {
+                    this.activeStep.style.display = "block";
+                    this.activeHead.classList.add("active");
+                    this.activeHead.querySelector(
+                        ".js-stepper-head-state-active",
+                    ).style.display = "block";
+                    this.activeHead.querySelector(
+                        ".js-stepper-head-state-default",
+                    ).style.display = "none";
                 }
-            });
-
-            if (this.activeHead && this.activeStep) {
-                this.activeStep.style.display = "block";
-                this.activeHead.classList.add("active");
-                this.activeHead.querySelector(
-                    ".js-stepper-head-state-active",
-                ).style.display = "block";
-                this.activeHead.querySelector(
-                    ".js-stepper-head-state-default",
-                ).style.display = "none";
             }
         },
     }));
