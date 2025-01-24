@@ -6,7 +6,7 @@ export default defineConfig({
         rollupOptions: {
             input: ['resources/js/app.js', 'resources/css/main.css'],
             output: {
-                entryFileNames: `app.js`,
+                entryFileNames: `js/app.js`,
                 assetFileNames: file => {
                     let ext = file.name.split('.').pop()
                     if (ext === 'css') {
