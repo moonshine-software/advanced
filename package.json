@@ -5,7 +5,7 @@
         "build": "vite build"
     },
     "devDependencies": {
-        "vite": "^4.1.4",
+        "vite": "^4.5.9",
         "prettier": "^3.4",
         "prettier-plugin-tailwindcss": "^0.5",
         "autoprefixer": "^10.4.14",
