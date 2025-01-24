@@ -110,7 +110,7 @@ final class Stepper extends AbstractWithComponents
 
     public function name(string $name): static
     {
-        $this->getComponents()->map(fn(Step $step): Step => $step->name($name));
+        $this->getComponents()->map(fn (Step $step): Step => $step->name($name));
 
         return parent::name($name);
     }

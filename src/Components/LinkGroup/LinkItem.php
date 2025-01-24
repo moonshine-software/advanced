@@ -21,8 +21,7 @@ final class LinkItem extends MoonShineComponent implements HasIconContract
         private string $href,
         private string $title,
         private ?string $description = null,
-    )
-    {
+    ) {
         parent::__construct();
     }
 
@@ -33,7 +32,7 @@ final class LinkItem extends MoonShineComponent implements HasIconContract
             'title' => $this->title,
             'description' => $this->description,
             'icon' => $this->getIcon(5, attributes: [
-                'class' => 'flex'
+                'class' => 'flex',
             ]),
         ];
     }

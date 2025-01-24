@@ -77,7 +77,7 @@ final class Step extends AbstractWithComponents implements HasIconContract
     public function nextLock(): self
     {
         return $this->customAttributes([
-            'data-next-lock' => true
+            'data-next-lock' => true,
         ]);
     }
 
