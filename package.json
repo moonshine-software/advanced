@@ -2,7 +2,8 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "prettier": "npx prettier --write 'resources/**/*.{css,js,yml}' '!**/views' '!**/dist' '!**/vendor'"
     },
     "devDependencies": {
         "vite": "^4.5.9",
