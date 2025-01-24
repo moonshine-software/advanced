@@ -5,7 +5,7 @@
     "src": "resources/css/main.css"
   },
   "resources/js/app.js": {
-    "file": "app.js",
+    "file": "js/app.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }
