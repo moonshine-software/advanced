@@ -5,7 +5,9 @@
         "build": "vite build"
     },
     "devDependencies": {
-        "vite": "^4.1.4"
+        "vite": "^4.1.4",
+        "prettier": "^3.4",
+        "prettier-plugin-tailwindcss": "^0.5"
     },
     "dependencies": {
         "@tailwindcss/aspect-ratio": "^0.4.2",

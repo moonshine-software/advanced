@@ -32,11 +32,11 @@ final class Stepper extends AbstractWithComponents
     ) {
         $collection = new Collection($components);
 
-        $this->finishButton = ActionButton::make($this->finishText)->onClick(fn () => 'finish()');
+        $this->finishButton = ActionButton::make($this->finishText)->onClick(fn (): string => 'finish()');
         $this->nextButton = static fn (ActionButtonContract $btn): ActionButtonContract => $btn;
 
         parent::__construct(
-            $collection->ensure(Step::class)->map(fn (Step $step, int $index) => $step->index($index + 1)),
+            $collection->ensure(Step::class)->map(fn (Step $step, int $index): Step => $step->index($index + 1)),
         );
     }
 
@@ -73,11 +73,11 @@ final class Stepper extends AbstractWithComponents
                 fn (Step $step, int $i) => $step
                 ->when(
                     $i < $index,
-                    fn (Step $s) => $s->done()
+                    fn (Step $s): Step => $s->done()
                 )
                 ->when(
                     $i === $index,
-                    fn (Step $s) => $s->active()
+                    fn (Step $s): Step => $s->active()
                 )
             )
         );
@@ -116,7 +116,7 @@ final class Stepper extends AbstractWithComponents
         $nextButtons = [];
 
         foreach ($this->getComponents() as $index => $step) {
-            $nextButtons[$index] = call_user_func($this->nextButton, ActionButton::make($this->nextText)->onClick(fn () => 'next()'), $index);
+            $nextButtons[$index] = call_user_func($this->nextButton, ActionButton::make($this->nextText)->onClick(fn (): string => 'next()'), $index);
         }
 
         return [

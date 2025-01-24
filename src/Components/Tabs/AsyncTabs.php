@@ -14,7 +14,7 @@ final class AsyncTabs extends AbstractWithComponents
 {
     protected string $view = 'moonshine-advanced::components.tabs.index';
 
-    private string $contentClass;
+    private readonly string $contentClass;
 
     protected function assets(): array
     {

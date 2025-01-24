@@ -10,10 +10,6 @@ use Rector\Set\ValueObject\SetList;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
-        __DIR__ . '/config',
-        __DIR__ . '/lang',
-        __DIR__ . '/database',
-        __DIR__ . '/routes',
         __DIR__ . '/src',
     ]);
 
@@ -22,7 +18,6 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__ . '/public',
         __DIR__ . '/resources',
         __DIR__ . '/vendor',
-        __DIR__ . '/stubs',
         __DIR__ . '/tests',
         ExplicitBoolCompareRector::class,
         FirstClassCallableRector::class,
