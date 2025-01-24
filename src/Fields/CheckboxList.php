@@ -49,7 +49,7 @@ class CheckboxList extends Field
     {
         $value = parent::resolveValue();
 
-        if(!\is_array($value)) {
+        if (! \is_array($value)) {
             return [];
         }
 

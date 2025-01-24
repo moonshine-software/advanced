@@ -59,7 +59,7 @@ class ButtonGroup extends Field
     {
         $value = parent::resolveValue();
 
-        if($this->multiple && !\is_array($value)) {
+        if ($this->multiple && ! \is_array($value)) {
             return [];
         }
 
