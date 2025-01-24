@@ -6,6 +6,7 @@ namespace MoonShine\Advanced\Components\Stepper;
 
 use Closure;
 use Illuminate\Support\Collection;
+use MoonShine\AssetManager\Css;
 use MoonShine\AssetManager\Js;
 use MoonShine\Contracts\UI\ActionButtonContract;
 use MoonShine\UI\Components\AbstractWithComponents;
@@ -42,6 +43,7 @@ final class Stepper extends AbstractWithComponents
     protected function assets(): array
     {
         return [
+            Css::make('vendor/moonshine-advanced/css/main.css'),
             Js::make('vendor/moonshine-advanced/js/app.js'),
         ];
     }

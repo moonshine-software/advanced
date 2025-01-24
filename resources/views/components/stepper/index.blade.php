@@ -6,11 +6,11 @@
     'defaultButton',
 ])
 <div x-data="stepper" {{ $attributes }}>
-    <x-moonshine::layout.flex class="js-stepper-head-container">
+    <div class="js-stepper-head-container">
         @foreach($components as $step)
             {!! $step->head() !!}
         @endforeach
-    </x-moonshine::layout.flex>
+    </div>
 
     <x-moonshine::layout.divider />
 
