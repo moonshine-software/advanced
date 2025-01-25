@@ -11,6 +11,10 @@
         label {
             @apply cursor-pointer absolute inset-0;
         }
+
+        & + .btn {
+            @apply -ms-[1px];
+        }
     }
     .btn:has(:checked) {
         @apply border-primary bg-primary text-white hover:bg-primary/80 hover:text-white focus:ring-primary focus:ring-opacity-20 dark:focus:ring-opacity-40;
