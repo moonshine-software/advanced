@@ -84,19 +84,19 @@ document.addEventListener("alpine:init", () => {
                 return;
             }
 
-            if(!force && this._getActiveHead()?.dataset?.nextLock) {
-                this._change(true)
+            if (!force && this._getActiveHead()?.dataset?.nextLock) {
+                this._change(true);
             } else {
                 this.active = index;
                 this._change();
             }
         },
         forceChange(index) {
-            this.current(index, true)
+            this.current(index, true);
         },
         next() {
-            if(this._getActiveHead()?.dataset?.nextLock) {
-                this._change(true)
+            if (this._getActiveHead()?.dataset?.nextLock) {
+                this._change(true);
             } else {
                 this.active++;
                 this._change();
@@ -107,8 +107,8 @@ document.addEventListener("alpine:init", () => {
             this._change();
         },
         finish() {
-            if(this._getActiveHead()?.dataset?.nextLock) {
-                this._change(true)
+            if (this._getActiveHead()?.dataset?.nextLock) {
+                this._change(true);
             } else {
                 this.finished = true;
                 this.active++;
@@ -118,13 +118,11 @@ document.addEventListener("alpine:init", () => {
         },
         // internal
         _getActiveHead() {
-          return this.head.querySelector(
-              `.js-stepper-head-${this.active}`,
-          )
+            return this.head.querySelector(`.js-stepper-head-${this.active}`);
         },
         // internal
         _change(onlyEvents = false) {
-            if(!onlyEvents) {
+            if (!onlyEvents) {
                 this.finishBlock.style.display = "none";
                 this.activeHead = this._getActiveHead();
                 this.activeStep = this.container.querySelector(
@@ -169,7 +167,7 @@ document.addEventListener("alpine:init", () => {
                 }
             }
 
-            if(!onlyEvents) {
+            if (!onlyEvents) {
                 this.steps.forEach((step) => (step.style.display = "none"));
                 this.heads.forEach((step, i) => {
                     step.classList.remove("active");
