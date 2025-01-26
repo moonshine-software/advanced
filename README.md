@@ -188,3 +188,91 @@ ButtonGroup::make('Plan')->options([
     3 => 'Pro',
 ])->multiple(),
 ```
+
+## Example
+
+```php
+public function stepForm(MoonShineRequest $request): MoonShineJsonResponse
+{
+    $request->validate([
+        'name' => ['required'],
+        'email' => ['required'],
+    ]);
+
+    return MoonShineJsonResponse::make()->events([
+        'go_to_step_2:dashboard'
+    ]);
+}
+
+protected function components(): iterable
+{
+    return [
+        Stepper::make([
+            Step::make([
+                FormBuilder::make()
+                    ->name('step_1_form')
+                    ->asyncMethod('stepForm')
+                    ->fields([
+                        Grid::make([
+                            Column::make([
+                                Box::make([
+                                    Text::make('Name'),
+                                    Email::make('Email'),
+
+                                    RadioGroup::make('Sex')->options([
+                                        1 => 'Male',
+                                        2 => 'Female',
+                                    ])->inline(),
+                                ])
+                            ])->columnSpan(6),
+
+                            Column::make([
+                                Box::make([
+                                    CheckboxList::make('Job title')->options([
+                                        1 => 'Developer',
+                                        2 => 'Team lead',
+                                    ]),
+
+                                    ButtonGroup::make('Plan')->options([
+                                        1 => 'Free',
+                                        2 => 'Basic',
+                                        3 => 'Pro',
+                                    ]),
+                                ])
+                            ])->columnSpan(6)
+                        ])
+                    ])
+                    ->hideSubmit()
+            ], 'Step 1', 'Tell us about yourself')->nextLock()->whenFinishEvents([
+                AlpineJs::event(JsEvent::FORM_SUBMIT, 'step_1_form')
+            ]),
+            Step::make([
+                AsyncTabs::make([
+                    AsyncTab::make('How to use the project', '/html'),
+                    AsyncTab::make('User agreement', '/html'),
+                ]),
+            ], 'Step 2', 'Rules')->icon('users'),
+
+            Step::make([], 'Step 3', 'Finishing')->async('/html', events: [
+                AlpineJs::event(JsEvent::FRAGMENT_UPDATED, '_content1')
+            ])->whenFinishEvents([
+                AlpineJs::event(JsEvent::FRAGMENT_UPDATED, '_content2')
+            ]),
+        ], [
+            Heading::make('Thanks!'),
+            LinkGroup::make([
+                LinkItem::make('#', 'Link 1', 'Description 1')->icon('arrow-right'),
+                LinkItem::make('#', 'Link 2'),
+            ])
+        ], 'Next', 'Finish')->name('dashboard')->lock(),
+
+        Fragment::make([
+            time()
+        ])->name('_content1'),
+
+        Fragment::make([
+            time()
+        ])->name('_content2'),
+    ];
+}
+```
