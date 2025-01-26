@@ -1,6 +1,19 @@
+![logo](https://getmoonshine.app/art/line-1.jpg)
+
 # MoonShine Advanced
 
 Advanced Fields and Components
+
+<p align="center">
+<a href="https://github.com/moonshine-software/advanced/actions"><img src="https://github.com/moonshine-software/advanced/workflows/tests/badge.svg" alt="Tests status"></a>
+<a href="https://packagist.org/packages/moonshine/v"><img src="https://img.shields.io/packagist/dt/moonshine/advanced" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/moonshine/advanced"><img src="https://img.shields.io/packagist/v/moonshine/advanced" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/moonshine/advanced"><img src="https://img.shields.io/packagist/l/moonshine/advanced" alt="License"></a>
+</p> 
+<p align="center">
+    <a href="https://laravel.com"><img alt="Laravel 10+" src="https://img.shields.io/badge/Laravel-10+-FF2D20?style=for-the-badge&logo=laravel"></a>
+    <a href="https://laravel.com"><img alt="PHP 8.1+" src="https://img.shields.io/badge/PHP-8.1+-777BB4?style=for-the-badge&logo=php"></a>
+</p>
 
 ```shell
 composer require moonshine/advanced
