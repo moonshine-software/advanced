@@ -1,4 +1,4 @@
-![logo](https://getmoonshine.app/art/line-1.jpg)
+![logo](https://github.com/moonshine-software/moonshine/raw/3.x/art/line-1.jpg)
 
 # MoonShine Advanced
 
