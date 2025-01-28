@@ -78,10 +78,10 @@ document.addEventListener("alpine:init", () => {
             }
         },
         current(index, force = false) {
-            index = parseInt(index)
+            index = parseInt(index);
 
-            if(index === this.active) {
-                return
+            if (index === this.active) {
+                return;
             }
 
             if (!force && this.lock) {
