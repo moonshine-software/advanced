@@ -9,7 +9,7 @@ use MoonShine\UI\Components\MoonShineComponent;
 use MoonShine\UI\Traits\WithIcon;
 
 /**
- * @method static static make(string $title, string $title, ?string $description = null)
+ * @method static static make(string $href, string $title, ?string $description = null)
  */
 final class LinkItem extends MoonShineComponent implements HasIconContract
 {
