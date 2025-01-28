@@ -267,7 +267,7 @@ protected function components(): iterable
                         ])
                     ])
                     ->hideSubmit()
-            ], 'Step 1', 'Tell us about yourself')->nextLock()->whenFinishEvents([
+            ], 'Step 1', 'Tell us about yourself')->nextLock()->whenChangingEvents([
                 AlpineJs::event(JsEvent::FORM_SUBMIT, 'step_1_form')
             ]),
             Step::make([
@@ -278,9 +278,9 @@ protected function components(): iterable
             ], 'Step 2', 'Rules')->icon('users'),
 
             Step::make([], 'Step 3', 'Finishing')->async('/html', events: [
-                AlpineJs::event(JsEvent::FRAGMENT_UPDATED, '_content1')
+                AlpineJs::event(JsEvent::FRAGMENT_UPDATED, 'time')
             ])->whenFinishEvents([
-                AlpineJs::event(JsEvent::FRAGMENT_UPDATED, '_content2')
+                AlpineJs::event(JsEvent::FRAGMENT_UPDATED, 'time')
             ]),
         ], [
             Heading::make('Thanks!'),
@@ -292,11 +292,7 @@ protected function components(): iterable
 
         Fragment::make([
             time()
-        ])->name('_content1'),
-
-        Fragment::make([
-            time()
-        ])->name('_content2'),
+        ])->name('time'),
     ];
 }
 ```
