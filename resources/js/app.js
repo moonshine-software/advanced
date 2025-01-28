@@ -87,14 +87,14 @@ document.addEventListener("alpine:init", () => {
             }
 
             if (!force) {
-                this._onStepChanging()
+                this._onStepChanging();
             }
 
             if (!force && this._getActiveHead()?.dataset?.nextLock) {
                 this._change(true);
             } else {
                 // before active
-                this._onStepFinished()
+                this._onStepFinished();
                 this.active = index;
                 this._change();
             }
@@ -103,30 +103,30 @@ document.addEventListener("alpine:init", () => {
             this.current(index, true);
         },
         next() {
-            this._onStepChanging()
+            this._onStepChanging();
 
             if (this._getActiveHead()?.dataset?.nextLock) {
                 this._change(true);
             } else {
                 // before active
-                this._onStepFinished()
+                this._onStepFinished();
                 this.active++;
                 this._change();
             }
         },
         prev() {
-            this._onStepChanging()
+            this._onStepChanging();
             this.active--;
             this._change();
         },
         finish() {
-            this._onStepChanging()
+            this._onStepChanging();
 
             if (this._getActiveHead()?.dataset?.nextLock) {
                 this._change(true);
             } else {
                 // before active
-                this._onStepFinished()
+                this._onStepFinished();
                 this.finished = true;
                 this.active++;
                 this._change();
@@ -135,12 +135,15 @@ document.addEventListener("alpine:init", () => {
         },
         // internals
         _onStepFinished() {
-            if(!this.activeHead) {
-                return
+            if (!this.activeHead) {
+                return;
             }
 
-            if(this.stepsFinished[this.active] !== undefined && this.activeHead.dataset.asyncFinishEventsOnce) {
-                return
+            if (
+                this.stepsFinished[this.active] !== undefined &&
+                this.activeHead.dataset.asyncFinishEventsOnce
+            ) {
+                return;
             }
 
             if (this.activeHead.dataset.asyncFinishEvents) {
@@ -151,15 +154,18 @@ document.addEventListener("alpine:init", () => {
                 );
             }
 
-            this.stepsFinished[this.active] = this.active
+            this.stepsFinished[this.active] = this.active;
         },
         _onStepChanging() {
-            if(!this.activeHead) {
-                return
+            if (!this.activeHead) {
+                return;
             }
 
-            if(this.stepsChanged[this.active] !== undefined && this.activeHead.dataset.asyncChangingEventsOnce) {
-                return
+            if (
+                this.stepsChanged[this.active] !== undefined &&
+                this.activeHead.dataset.asyncChangingEventsOnce
+            ) {
+                return;
             }
 
             if (this.activeHead.dataset.asyncChangingEvents) {
@@ -170,7 +176,7 @@ document.addEventListener("alpine:init", () => {
                 );
             }
 
-            this.stepsChanged[this.active] = this.active
+            this.stepsChanged[this.active] = this.active;
         },
         _getActiveHead() {
             return this.head.querySelector(`.js-stepper-head-${this.active}`);
