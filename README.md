@@ -9,7 +9,7 @@ Advanced Fields and Components
 <a href="https://packagist.org/packages/moonshine/v"><img src="https://img.shields.io/packagist/dt/moonshine/advanced" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/moonshine/advanced"><img src="https://img.shields.io/packagist/v/moonshine/advanced" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/moonshine/advanced"><img src="https://img.shields.io/packagist/l/moonshine/advanced" alt="License"></a>
-</p> 
+</p>
 <p align="center">
     <a href="https://laravel.com"><img alt="Laravel 10+" src="https://img.shields.io/badge/Laravel-10+-FF2D20?style=for-the-badge&logo=laravel"></a>
     <a href="https://laravel.com"><img alt="PHP 8.1+" src="https://img.shields.io/badge/PHP-8.1+-777BB4?style=for-the-badge&logo=php"></a>
@@ -62,14 +62,25 @@ Stepper::make([
 
 ### Events when switching a step
 
+Events when a step is changing:
+
+```php
+Step::make(title: 'Step', description: 'Some description')
+    ->whenChangingEvents([
+        AlpineJs::event(JsEvent::FRAGMENT_UPDATED, 'fragment-2')
+    ], once: false)
+```
+
 Events when a step is completed:
 
 ```php
 Step::make(title: 'Step', description: 'Some description')
     ->whenFinishEvents([
         AlpineJs::event(JsEvent::FRAGMENT_UPDATED, 'fragment-2')
-    ])
+    ], once: true)
 ```
+
+The `once` parameter indicates once the events will be caused or with each change
 
 ### Content after completion
 
