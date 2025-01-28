@@ -53,6 +53,8 @@ document.addEventListener("alpine:init", () => {
         lock: false,
         lockWhenFinish: false,
         loaded: [],
+        stepsFinished: [],
+        stepsChanged: [],
 
         init() {
             this.lock = this.$root.dataset.lock;
@@ -84,9 +86,15 @@ document.addEventListener("alpine:init", () => {
                 return;
             }
 
+            if (!force) {
+                this._onStepChanging()
+            }
+
             if (!force && this._getActiveHead()?.dataset?.nextLock) {
                 this._change(true);
             } else {
+                // before active
+                this._onStepFinished()
                 this.active = index;
                 this._change();
             }
@@ -95,32 +103,78 @@ document.addEventListener("alpine:init", () => {
             this.current(index, true);
         },
         next() {
+            this._onStepChanging()
+
             if (this._getActiveHead()?.dataset?.nextLock) {
                 this._change(true);
             } else {
+                // before active
+                this._onStepFinished()
                 this.active++;
                 this._change();
             }
         },
         prev() {
+            this._onStepChanging()
             this.active--;
             this._change();
         },
         finish() {
+            this._onStepChanging()
+
             if (this._getActiveHead()?.dataset?.nextLock) {
                 this._change(true);
             } else {
+                // before active
+                this._onStepFinished()
                 this.finished = true;
                 this.active++;
                 this._change();
                 this.finishBlock.style.display = "block";
             }
         },
-        // internal
+        // internals
+        _onStepFinished() {
+            if(!this.activeHead) {
+                return
+            }
+
+            if(this.stepsFinished[this.active] !== undefined && this.activeHead.dataset.asyncFinishEventsOnce) {
+                return
+            }
+
+            if (this.activeHead.dataset.asyncFinishEvents) {
+                MoonShine.dispatchEvents(
+                    this.activeHead.dataset.asyncFinishEvents,
+                    "",
+                    this,
+                );
+            }
+
+            this.stepsFinished[this.active] = this.active
+        },
+        _onStepChanging() {
+            if(!this.activeHead) {
+                return
+            }
+
+            if(this.stepsChanged[this.active] !== undefined && this.activeHead.dataset.asyncChangingEventsOnce) {
+                return
+            }
+
+            if (this.activeHead.dataset.asyncChangingEvents) {
+                MoonShine.dispatchEvents(
+                    this.activeHead.dataset.asyncChangingEvents,
+                    "",
+                    this,
+                );
+            }
+
+            this.stepsChanged[this.active] = this.active
+        },
         _getActiveHead() {
             return this.head.querySelector(`.js-stepper-head-${this.active}`);
         },
-        // internal
         _change(onlyEvents = false) {
             if (!onlyEvents) {
                 this.finishBlock.style.display = "none";
@@ -155,14 +209,6 @@ document.addEventListener("alpine:init", () => {
                             beforeHandleResponse: stopLoading,
                             errorCallback: stopLoading,
                         },
-                    );
-                }
-
-                if (this.activeHead.dataset.asyncFinishEvents) {
-                    MoonShine.dispatchEvents(
-                        this.activeHead.dataset.asyncFinishEvents,
-                        "",
-                        this,
                     );
                 }
             }

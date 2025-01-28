@@ -40,10 +40,19 @@ final class Step extends AbstractWithComponents implements HasIconContract
         ]);
     }
 
-    public function whenFinishEvents(array $events): self
+    public function whenFinishEvents(array $events, bool $once = true): self
     {
         return $this->customAttributes([
             'data-async-finish-events' => AlpineJs::prepareEvents($events),
+            'data-async-finish-events-once' => $once,
+        ]);
+    }
+
+    public function whenChangingEvents(array $events, bool $once = false): self
+    {
+        return $this->customAttributes([
+            'data-async-changing-events' => AlpineJs::prepareEvents($events),
+            'data-async-changing-events-once' => $once,
         ]);
     }
 
