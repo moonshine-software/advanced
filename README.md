@@ -1,3 +1,9 @@
+<!--
+title: MoonShine Advanced
+versions: 3
+image: https://github.com/moonshine-software/moonshine/raw/3.x/art/line-1.jpg
+-->
+
 ![logo](https://github.com/moonshine-software/moonshine/raw/3.x/art/line-1.jpg)
 
 # MoonShine Advanced
