@@ -6,7 +6,7 @@
 ])
 <div {{ $attributes->only(['style', 'class']) }}>
     @foreach($options as $option => $label)
-        <div x-id="['field-{{ $formName }}']" data-field="{{ $column }}">
+        <div x-id="['field-{{ $formName }}']" data-validation-wrapper="{{ $column }}">
             <x-moonshine::form.label class="flex items-center gap-2">
                 <x-moonshine::form.input
                     type="checkbox"
