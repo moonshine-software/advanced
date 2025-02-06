@@ -12,7 +12,7 @@
             <label>
                 <x-moonshine::form.input
                     :type="$multiple ? 'checkbox' : 'radio'"
-                    :attributes="$attributes->only(['name'])->merge(['checked' => $multiple ? in_array($option, $value) : $option === $value])"
+                    :attributes="$attributes->only(['name'])->merge(['checked' => $multiple ? in_array($option, $value) : $option == $value])"
                     value="{{ $option }}"
                 />
             </label>
