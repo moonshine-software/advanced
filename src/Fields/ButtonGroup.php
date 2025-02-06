@@ -69,6 +69,7 @@ class ButtonGroup extends Field
     protected function viewData(): array
     {
         return [
+            'column' => $this->getColumn(),
             'options' => $this->options,
             'multiple' => $this->multiple,
             'optionAttributes' => $this->optionAttributes,
