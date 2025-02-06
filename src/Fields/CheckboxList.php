@@ -59,6 +59,7 @@ class CheckboxList extends Field
     protected function viewData(): array
     {
         return [
+            'column' => $this->getColumn(),
             'options' => $this->options,
             'optionAttributes' => $this->optionAttributes,
         ];
