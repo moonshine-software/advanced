@@ -5,7 +5,7 @@
     'multiple' => false,
     'values' => []
 ])
-<div {{ $attributes->merge(['class' => 'advanced-button-group']) }} data-validation-wrapper="{{ $column }}">
+<div {{ $attributes->merge(['class' => 'advanced-button-group']) }} data-validation-field="{{ $column }}">
     @foreach($options as $option => $label)
         <x-moonshine::link-button
             :attributes="$attributes->only([])->merge($optionAttributes === null ? [] : $optionAttributes($option))"
