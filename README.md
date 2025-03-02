@@ -219,6 +219,19 @@ ButtonGroup::make('Plan')->options([
 ])->multiple(),
 ```
 
+## SPA Menu
+
+```php
+use MoonShine\MenuManager\MenuItem;
+
+protected function menu(): array
+{
+    return [
+        MenuItem::make('Users', UserResource::class)->spa(),
+    ];
+}
+```
+
 ## Example
 
 ```php
