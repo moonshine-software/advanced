@@ -14,7 +14,7 @@ use MoonShine\UI\Components\ActionButton;
 use Throwable;
 
 /**
- * @method static static make(iterable $components = [], iterable $finishComponents = [], string $nextText = 'Next', string $finishText = 'Finish')
+ * @method static static make(iterable $components = [], iterable $finishComponent = [], string $nextText = 'Next', string $finishText = 'Finish')
  */
 final class Stepper extends AbstractWithComponents
 {
