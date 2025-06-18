@@ -10,7 +10,7 @@ use MoonShine\UI\Fields\Field;
 class RadioGroup extends Field
 {
     /**
-     * @var array<string, int|string>
+     * @var array<int|string, int|string>
      */
     protected array $options = [];
 
