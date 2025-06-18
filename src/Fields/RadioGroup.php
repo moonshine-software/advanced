@@ -19,7 +19,7 @@ class RadioGroup extends Field
     protected string $view = 'moonshine-advanced::fields.radio-group';
 
     /**
-     * @param array<string, int|string> $options
+     * @param array<int|string, int|string> $options
      */
     public function options(array $options): self
     {
