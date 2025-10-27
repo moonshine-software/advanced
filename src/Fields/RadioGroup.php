@@ -40,7 +40,7 @@ class RadioGroup extends Field
 
     public function inline(): self
     {
-        return $this->class(['flex', 'items-center', 'gap-4']);
+        return $this->class(['flex-group-inline-list', 'flex', 'flex-wrap', 'gap-4']);
     }
 
     protected function viewData(): array
