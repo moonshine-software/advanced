@@ -1,6 +1,6 @@
 <!--
 title: MoonShine Advanced
-versions: 3
+versions: 3,4
 image: https://github.com/moonshine-software/moonshine/raw/3.x/art/line-1.jpg
 -->
 
@@ -9,6 +9,13 @@ image: https://github.com/moonshine-software/moonshine/raw/3.x/art/line-1.jpg
 # MoonShine Advanced
 
 Advanced Fields and Components
+
+## Requirements
+
+| MoonShine Advanced | MoonShine |
+|--------------------|-----------|
+| 1.x                | 3.x       |
+| 2.x                | 4.x       |
 
 <p align="center">
 <a href="https://github.com/moonshine-software/advanced/actions"><img src="https://github.com/moonshine-software/advanced/workflows/tests/badge.svg" alt="Tests status"></a>

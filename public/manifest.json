@@ -1,12 +1,16 @@
 {
   "resources/css/main.css": {
     "file": "css/main.css",
+    "src": "resources/css/main.css",
     "isEntry": true,
-    "src": "resources/css/main.css"
+    "names": [
+      "main.css"
+    ]
   },
   "resources/js/app.js": {
     "file": "js/app.js",
-    "isEntry": true,
-    "src": "resources/js/app.js"
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
   }
 }

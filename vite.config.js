@@ -1,8 +1,13 @@
-import {defineConfig} from 'vite';
+import { defineConfig } from 'vite';
+import tailwindcss from '@tailwindcss/vite';
+
 export default defineConfig({
+    plugins: [
+        tailwindcss(),
+    ],
     build: {
         emptyOutDir: false,
-        manifest: true,
+        manifest: 'manifest.json',
         rollupOptions: {
             input: ['resources/js/app.js', 'resources/css/main.css'],
             output: {

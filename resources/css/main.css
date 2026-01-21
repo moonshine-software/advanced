@@ -1,3 +1,7 @@
+@import 'tailwindcss/utilities';
+
+@reference 'tailwindcss/theme';
+
 .advanced-button-group {
     @apply flex;
 
@@ -16,8 +20,17 @@
             @apply -ms-[1px];
         }
     }
+
     .btn:has(:checked) {
-        @apply border-primary bg-primary text-white hover:bg-primary/80 hover:text-white focus:ring-primary focus:ring-opacity-20 dark:focus:ring-opacity-40;
+        border-color: var(--color-primary);
+        background-color: var(--color-primary);
+        color: var(--color-primary-text);
+
+        &:hover {
+            border-color: var(--color-primary);
+            background-color: color-mix(in oklch, var(--color-primary) 80%, transparent);
+            color: var(--color-primary-text);
+        }
     }
 }
 
@@ -29,7 +42,9 @@
 
         &:not(:last-child) {
             &::after {
-                @apply h-6 w-6 bg-gray-600 dark:bg-gray-400 ms-4;
+                @apply h-6 w-6 ms-4;
+                background-color: var(--color-base-text);
+                opacity: 0.4;
                 content: "";
                 mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%232e2e2e' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E");
                 mask-size: cover;
@@ -42,14 +57,23 @@
 
         .js-stepper-head-state-done {
             .btn {
-                @apply border-primary bg-primary text-white hover:bg-primary/80 hover:text-white focus:ring-primary focus:ring-opacity-20 dark:focus:ring-opacity-40;
+                border-color: var(--color-primary);
+                background-color: var(--color-primary);
+                color: var(--color-primary-text);
+
+                &:hover {
+                    border-color: var(--color-primary);
+                    background-color: color-mix(in oklch, var(--color-primary) 80%, transparent);
+                    color: var(--color-primary-text);
+                }
 
                 span {
                     @apply hidden;
                 }
 
                 &:before {
-                    @apply h-5 w-5 bg-white;
+                    @apply h-5 w-5;
+                    background-color: var(--color-primary-text);
                     content: "";
                     mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='currentColor' aria-hidden='true' data-slot='icon'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m4.5 12.75 6 6 9-13.5'%3E%3C/path%3E%3C/svg%3E");
                     mask-size: cover;
@@ -63,23 +87,37 @@
             }
 
             .js-stepper-head-description {
-                @apply text-3xs text-slate-400 dark:text-slate-500;
+                font-size: var(--text-3xs);
+                color: color-mix(in oklch, var(--color-base-text) 50%, transparent);
             }
         }
     }
 }
 
 .js-stepper-content {
-    @apply space-y-4;
+    @apply flex flex-col gap-4;
 }
 
 .link-group {
-    @apply flex flex-col overflow-hidden rounded-md divide-y dark:divide-dark-200 border dark:border-dark-200 dark:bg-dark-500 dark:text-slate-300;
+    @apply flex flex-col overflow-hidden rounded-md;
+    border: 1px solid var(--color-base-stroke);
+    background-color: var(--color-base);
 
-    &-item {
-        @apply flex justify-between items-center p-4 transition hover:text-secondary dark:hover:text-secondary;
+    > * + * {
+        border-top: 1px solid var(--color-base-stroke);
     }
-    &-description {
-        @apply text-3xs text-slate-400 dark:text-slate-500;
+}
+
+.link-group-item {
+    @apply flex justify-between items-center p-4 transition-colors;
+    color: var(--color-base-text);
+
+    &:hover {
+        color: var(--color-secondary);
     }
+}
+
+.link-group-description {
+    font-size: var(--text-3xs);
+    color: color-mix(in oklch, var(--color-base-text) 50%, transparent);
 }
