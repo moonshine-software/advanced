@@ -1,4 +1,4 @@
-@import 'tailwindcss/utilities';
+@import "tailwindcss/utilities";
 
 @reference 'tailwindcss/theme';
 
@@ -28,7 +28,11 @@
 
         &:hover {
             border-color: var(--color-primary);
-            background-color: color-mix(in oklch, var(--color-primary) 80%, transparent);
+            background-color: color-mix(
+                in oklch,
+                var(--color-primary) 80%,
+                transparent
+            );
             color: var(--color-primary-text);
         }
     }
@@ -63,7 +67,11 @@
 
                 &:hover {
                     border-color: var(--color-primary);
-                    background-color: color-mix(in oklch, var(--color-primary) 80%, transparent);
+                    background-color: color-mix(
+                        in oklch,
+                        var(--color-primary) 80%,
+                        transparent
+                    );
                     color: var(--color-primary-text);
                 }
 
@@ -88,7 +96,11 @@
 
             .js-stepper-head-description {
                 font-size: var(--text-3xs);
-                color: color-mix(in oklch, var(--color-base-text) 50%, transparent);
+                color: color-mix(
+                    in oklch,
+                    var(--color-base-text) 50%,
+                    transparent
+                );
             }
         }
     }
