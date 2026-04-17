@@ -16,6 +16,10 @@ final class AsyncTabs extends AbstractWithComponents
 
     private readonly string $contentClass;
 
+    private ?string $urlName = null;
+
+    private bool $pushHistory = false;
+
     protected function assets(): array
     {
         return [
@@ -34,21 +38,45 @@ final class AsyncTabs extends AbstractWithComponents
         parent::__construct(
             $collection
                 ->ensure(AsyncTab::class)
-                ->map(
-                    fn (AsyncTab $tab) => ActionButton::make($tab->label, $tab->href)
+                ->values()
+                ->map(function (AsyncTab $tab, int $index) {
+                    $button = ActionButton::make($tab->label, $tab->href)
                         ->customView('moonshine-advanced::components.tabs.action-tab')
                         ->async(
                             selector: ".{$this->contentClass}",
                             callback: AsyncCallback::with(afterResponse: 'asyncTabs')
-                        )
-                )
+                        );
+
+                    $button->customAttributes([
+                        'data-async-tab-slug' => $tab->slug ?? (string) $index,
+                    ]);
+
+                    return $button;
+                })
         );
+    }
+
+    /**
+     * Persist active tab in the URL using a query parameter.
+     *
+     * @param  string  $name  Unique key for this tab group, used as the query param name.
+     *                        Required to avoid collisions between multiple or nested groups.
+     * @param  bool  $pushHistory  Whether to push a new history entry on each switch (default: replace).
+     */
+    public function withUrl(string $name, bool $pushHistory = false): self
+    {
+        $this->urlName = $name;
+        $this->pushHistory = $pushHistory;
+
+        return $this;
     }
 
     protected function viewData(): array
     {
         return [
             'contentClass' => $this->contentClass,
+            'urlName' => $this->urlName,
+            'pushHistory' => $this->pushHistory,
         ];
     }
 }

@@ -9,7 +9,7 @@ use MoonShine\Support\Traits\Makeable;
 use MoonShine\UI\Traits\WithIcon;
 
 /**
- * @method static static make(string $label, string $href)
+ * @method static static make(string $label, string $href, ?string $slug = null)
  */
 final class AsyncTab implements HasIconContract
 {
@@ -19,6 +19,14 @@ final class AsyncTab implements HasIconContract
     public function __construct(
         public string $label,
         public string $href,
+        public ?string $slug = null,
     ) {
+    }
+
+    public function slug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }

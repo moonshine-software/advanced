@@ -19,6 +19,7 @@ document.addEventListener("moonshine:init", () => {
     MoonShine.onCallback("asyncTabs", function (data, messageType, component) {
         const el = component.$el;
         const container = el.closest(".async-tabs-container");
+        const root = el.closest(".tabs");
 
         container.querySelectorAll("a").forEach((a) => {
             a.classList.remove("_is-active");
@@ -27,15 +28,52 @@ document.addEventListener("moonshine:init", () => {
 
         el.classList.add("_is-active");
         el.setAttribute("data-stop-async", true);
+
+        writeAsyncTabSlug(root, el.dataset.asyncTabSlug);
     });
 });
+
+const asyncTabsParamKey = (name) => `tabs_${name}`;
+
+const readAsyncTabSlug = (root) => {
+    const name = root?.dataset.asyncTabsName;
+    if (!name) return null;
+    return new URL(window.location.href).searchParams.get(
+        asyncTabsParamKey(name),
+    );
+};
+
+const writeAsyncTabSlug = (root, slug) => {
+    const name = root?.dataset.asyncTabsName;
+    if (!name || !slug) return;
+
+    const url = new URL(window.location.href);
+    if (url.searchParams.get(asyncTabsParamKey(name)) === slug) return;
+
+    url.searchParams.set(asyncTabsParamKey(name), slug);
+
+    const method = root.dataset.asyncTabsHistory === "push" ? "pushState" : "replaceState";
+    history[method]({}, "", url.href);
+};
 
 document.addEventListener("alpine:init", () => {
     Alpine.data("asyncTabs", () => ({
         init() {
             const t = this;
             this.$nextTick(() => {
-                t.$root.querySelector(".async-tabs-container a").click();
+                const container = t.$root.querySelector(".async-tabs-container");
+                if (!container) return;
+
+                const desired = readAsyncTabSlug(t.$root);
+                let target = null;
+
+                if (desired) {
+                    target = container.querySelector(
+                        `a[data-async-tab-slug="${CSS.escape(desired)}"]`,
+                    );
+                }
+
+                (target ?? container.querySelector("a"))?.click();
             });
         },
     }));
