@@ -33,14 +33,10 @@ document.addEventListener("moonshine:init", () => {
     });
 });
 
-const asyncTabsParamKey = (name) => `tabs_${name}`;
-
 const readAsyncTabSlug = (root) => {
     const name = root?.dataset.asyncTabsName;
     if (!name) return null;
-    return new URL(window.location.href).searchParams.get(
-        asyncTabsParamKey(name),
-    );
+    return new URL(window.location.href).searchParams.get(name);
 };
 
 const writeAsyncTabSlug = (root, slug) => {
@@ -48,13 +44,32 @@ const writeAsyncTabSlug = (root, slug) => {
     if (!name || !slug) return;
 
     const url = new URL(window.location.href);
-    if (url.searchParams.get(asyncTabsParamKey(name)) === slug) return;
+    if (url.searchParams.get(name) === slug) return;
 
-    url.searchParams.set(asyncTabsParamKey(name), slug);
+    url.searchParams.set(name, slug);
 
     const method = root.dataset.asyncTabsHistory === "push" ? "pushState" : "replaceState";
     history[method]({}, "", url.href);
 };
+
+const findTabAnchor = (root, slug) =>
+    root.querySelector(
+        `.async-tabs-container > li > a[data-async-tab-slug="${CSS.escape(slug)}"]`,
+    );
+
+window.addEventListener("popstate", () => {
+    document.querySelectorAll(".tabs[data-async-tabs-name]").forEach((root) => {
+        const desired = readAsyncTabSlug(root);
+        if (!desired) return;
+
+        const current = root.querySelector(
+            ".async-tabs-container > li > a._is-active",
+        );
+        if (current?.dataset.asyncTabSlug === desired) return;
+
+        findTabAnchor(root, desired)?.click();
+    });
+});
 
 document.addEventListener("alpine:init", () => {
     Alpine.data("asyncTabs", () => ({
@@ -65,13 +80,7 @@ document.addEventListener("alpine:init", () => {
                 if (!container) return;
 
                 const desired = readAsyncTabSlug(t.$root);
-                let target = null;
-
-                if (desired) {
-                    target = container.querySelector(
-                        `a[data-async-tab-slug="${CSS.escape(desired)}"]`,
-                    );
-                }
+                const target = desired ? findTabAnchor(t.$root, desired) : null;
 
                 (target ?? container.querySelector("a"))?.click();
             });
