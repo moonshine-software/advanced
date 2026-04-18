@@ -179,6 +179,54 @@ AsyncTabs::make([
 ]),
 ```
 
+### Persist active tab in URL
+
+By default the first tab is opened on every page load. To keep the active tab
+in the URL (so that reloads and shared links restore it) enable `withUrl()`:
+
+```php
+AsyncTabs::make([
+    AsyncTab::make('Profile', '/html/profile'),
+    AsyncTab::make('Security', '/html/security'),
+])->withUrl(),
+// ?tab=security
+```
+
+The query key defaults to `tab`. Each tab's slug defaults to `Str::slug($label)`
+(e.g. `User Profile` → `user-profile`). Both can be overridden:
+
+```php
+AsyncTabs::make([
+    AsyncTab::make('Profile', '/html/profile')->slug('me'),
+    AsyncTab::make('Security', '/html/security')->slug('sec'),
+])->withUrl('account'),
+// ?account=sec
+```
+
+Nested `AsyncTabs` (tabs loaded as content of another async tab) are supported
+— just give each group a unique query key:
+
+```php
+AsyncTabs::make([
+    AsyncTab::make('Profile', '/html/profile'),
+    AsyncTab::make('Security', '/html/security'),
+])->withUrl('section'),
+// inside the /html/security response:
+AsyncTabs::make([
+    AsyncTab::make('Password', '/html/password'),
+    AsyncTab::make('Devices', '/html/devices'),
+])->withUrl('detail'),
+// final URL: ?section=security&detail=devices
+```
+
+By default switching a tab calls `history.replaceState` to avoid polluting
+browser history. Pass `pushHistory: true` to push a new entry per switch so
+that the Back/Forward buttons navigate between tabs:
+
+```php
+AsyncTabs::make([...])->withUrl(pushHistory: true),
+```
+
 ## Link group
 
 ```php

@@ -19,6 +19,7 @@ document.addEventListener("moonshine:init", () => {
     MoonShine.onCallback("asyncTabs", function (data, messageType, component) {
         const el = component.$el;
         const container = el.closest(".async-tabs-container");
+        const root = el.closest(".tabs");
 
         container.querySelectorAll("a").forEach((a) => {
             a.classList.remove("_is-active");
@@ -27,6 +28,46 @@ document.addEventListener("moonshine:init", () => {
 
         el.classList.add("_is-active");
         el.setAttribute("data-stop-async", true);
+
+        writeAsyncTabSlug(root, el.dataset.asyncTabSlug);
+    });
+});
+
+const readAsyncTabSlug = (root) => {
+    const name = root?.dataset.asyncTabsName;
+    if (!name) return null;
+    return new URL(window.location.href).searchParams.get(name);
+};
+
+const writeAsyncTabSlug = (root, slug) => {
+    const name = root?.dataset.asyncTabsName;
+    if (!name || !slug) return;
+
+    const url = new URL(window.location.href);
+    if (url.searchParams.get(name) === slug) return;
+
+    url.searchParams.set(name, slug);
+
+    const method = root.dataset.asyncTabsHistory === "push" ? "pushState" : "replaceState";
+    history[method]({}, "", url.href);
+};
+
+const findTabAnchor = (root, slug) =>
+    root.querySelector(
+        `.async-tabs-container > li > a[data-async-tab-slug="${CSS.escape(slug)}"]`,
+    );
+
+window.addEventListener("popstate", () => {
+    document.querySelectorAll(".tabs[data-async-tabs-name]").forEach((root) => {
+        const desired = readAsyncTabSlug(root);
+        if (!desired) return;
+
+        const current = root.querySelector(
+            ".async-tabs-container > li > a._is-active",
+        );
+        if (current?.dataset.asyncTabSlug === desired) return;
+
+        findTabAnchor(root, desired)?.click();
     });
 });
 
@@ -35,7 +76,13 @@ document.addEventListener("alpine:init", () => {
         init() {
             const t = this;
             this.$nextTick(() => {
-                t.$root.querySelector(".async-tabs-container a").click();
+                const container = t.$root.querySelector(".async-tabs-container");
+                if (!container) return;
+
+                const desired = readAsyncTabSlug(t.$root);
+                const target = desired ? findTabAnchor(t.$root, desired) : null;
+
+                (target ?? container.querySelector("a"))?.click();
             });
         },
     }));
