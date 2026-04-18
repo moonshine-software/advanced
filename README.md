@@ -189,10 +189,10 @@ AsyncTabs::make([
     AsyncTab::make('Profile', '/html/profile'),
     AsyncTab::make('Security', '/html/security'),
 ])->withUrl(),
-// ?tabs=security
+// ?tab=security
 ```
 
-The query key defaults to `tabs`. Each tab's slug defaults to `Str::slug($label)`
+The query key defaults to `tab`. Each tab's slug defaults to `Str::slug($label)`
 (e.g. `User Profile` → `user-profile`). Both can be overridden:
 
 ```php

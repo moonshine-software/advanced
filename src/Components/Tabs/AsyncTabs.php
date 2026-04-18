@@ -60,14 +60,14 @@ final class AsyncTabs extends AbstractWithComponents
     /**
      * Persist active tab in the URL using a query parameter.
      *
-     * @param  string  $name  Query param name for this tab group. Defaults to "tabs".
+     * @param  string  $name  Query param name for this tab group. Defaults to "tab".
      *                        Use a unique value for nested groups or when several
      *                        AsyncTabs coexist on one page.
      * @param  bool  $pushHistory  Push a new history entry on each tab switch so that
      *                             Back/Forward navigate between tabs. Defaults to
      *                             replacing the current entry.
      */
-    public function withUrl(string $name = 'tabs', bool $pushHistory = false): self
+    public function withUrl(string $name = 'tab', bool $pushHistory = false): self
     {
         $this->urlName = $name;
         $this->pushHistory = $pushHistory;
