@@ -48,7 +48,8 @@ const writeAsyncTabSlug = (root, slug) => {
 
     url.searchParams.set(name, slug);
 
-    const method = root.dataset.asyncTabsHistory === "push" ? "pushState" : "replaceState";
+    const method =
+        root.dataset.asyncTabsHistory === "push" ? "pushState" : "replaceState";
     history[method]({}, "", url.href);
 };
 
@@ -76,7 +77,9 @@ document.addEventListener("alpine:init", () => {
         init() {
             const t = this;
             this.$nextTick(() => {
-                const container = t.$root.querySelector(".async-tabs-container");
+                const container = t.$root.querySelector(
+                    ".async-tabs-container",
+                );
                 if (!container) return;
 
                 const desired = readAsyncTabSlug(t.$root);
