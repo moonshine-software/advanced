@@ -210,13 +210,13 @@ Nested `AsyncTabs` (tabs loaded as content of another async tab) are supported
 AsyncTabs::make([
     AsyncTab::make('Profile', '/html/profile'),
     AsyncTab::make('Security', '/html/security'),
-])->withUrl('account'),
+])->withUrl('section'),
 // inside the /html/security response:
 AsyncTabs::make([
     AsyncTab::make('Password', '/html/password'),
     AsyncTab::make('Devices', '/html/devices'),
-])->withUrl('security'),
-// final URL: ?account=security&security=devices
+])->withUrl('detail'),
+// final URL: ?section=security&detail=devices
 ```
 
 By default switching a tab calls `history.replaceState` to avoid polluting
